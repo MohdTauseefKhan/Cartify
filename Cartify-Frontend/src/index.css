@@ -1,9 +1,12 @@
-/* colors */
-/* https://coolors.co/palette/03045e-023e8a-0077b6-0096c7-00b4d8-48cae4-90e0ef-ade8f4-caf0f8 */
-
 body{
-  background-color: #03045E;
-  color: white;
+  background-color: white;
+  color: black;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 :root{
@@ -12,6 +15,7 @@ body{
 }
 
 *{
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

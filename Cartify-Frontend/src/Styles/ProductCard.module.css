@@ -1,0 +1,173 @@
+.card {
+  width: 100%;
+  max-width: 260px;
+  overflow: hidden;
+  border: 1px solid #e4e4e7;
+  border-radius: 20px;
+  background: #ffffff;
+  color: #111111;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  font-family: inherit;
+  margin: 10px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.imageWrap {
+  position: relative;
+  aspect-ratio: 4 / 4;
+  overflow: hidden;
+  background: #f4f4f5;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.badgeBlack,
+.badgeWhite {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.badgeBlack {
+  background: #111111;
+  color: #ffffff;
+}
+
+.badgeWhite {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid #d4d4d8;
+}
+
+.wishlistBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #111111;
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  z-index: 2;
+}
+
+.wishlistBtn:hover {
+  background: #111111;
+  color: #ffffff;
+}
+
+.content {
+  padding: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.category {
+  margin: 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #71717a;
+}
+
+.name {
+  margin: 6px 0 0;
+  font-size: 18px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #111111;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rating {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.reviews {
+  font-size: 14px;
+  color: #71717a;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 800;
+  color: #111111;
+}
+
+.oldPrice {
+  font-size: 14px;
+  color: #a1a1aa;
+  text-decoration: line-through;
+}
+
+.cartBtn {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  background: #111111;
+  color: #ffffff;
+  padding: 14px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cartBtn:hover {
+  background: #2b2b2b;
+}
+
+.cartBtn:active {
+  transform: scale(0.98);
+}
+
+.cartBtn:disabled {
+  cursor: not-allowed;
+  background: #d4d4d8;
+  color: #71717a;
+}
