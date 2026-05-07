@@ -1,13 +1,11 @@
 import React from "react";
-import styles from "../Styles/Categories.module.css";
 import { NavLink } from "react-router-dom";
 
 const Categories = () => {
-  const getClass = ({ isActive }) => {
-    return isActive ? `${styles.category} ${styles.active}` : styles.category;
-  };
+  const getClass = ({ isActive }) =>
+    `p-2 rounded-xl text-center justify-center text-[8px] md:text-sm lg:text-lg ${isActive ? "text-white bg-black font-bold" : "font-light text-zinc-500"}`;
   return (
-    <div className={styles.categories}>
+    <div className="flex flex-row justify-between mx-8 border-2 rounded-2xl">
       <NavLink to="/categories/For you" className={getClass}>
         For you
       </NavLink>
