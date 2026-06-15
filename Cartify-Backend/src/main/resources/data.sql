@@ -1,21 +1,21 @@
-INSERT INTO product (old_price, price, rating, review, badge, category, name)
+INSERT INTO product (old_price, price, badge, category, sub_category, name)
 VALUES
-    (4999, 3499, 4.8, 126, 'Best Seller', 'Footwear', 'Minimal Leather Sneakers'),
+    (4999, 3499, 'Best Seller', 'Footwear', 'Sneakers', 'Minimal Leather Sneakers'),
 
-    (2999, 1999, 4.5, 89, 'New', 'Clothing', 'Oversized Black Hoodie'),
+    (2999, 1999, 'New', 'Clothing', 'Hoodies', 'Oversized Black Hoodie'),
 
-    (5999, 4599, 4.9, 210, 'Trending', 'Electronics', 'Wireless Headphones'),
+    (5999, 4599, 'Trending', 'Electronics', 'Audio', 'Wireless Headphones'),
 
-    (1499, 999, 4.3, 54, 'Hot', 'Accessories', 'Classic Leather Wallet'),
+    (1499, 999, 'Hot', 'Accessories', 'Wallets', 'Classic Leather Wallet'),
 
-    (8999, 7499, 4.7, 172, 'Limited', 'Electronics', 'Smart Watch Pro'),
+    (8999, 7499, 'Limited', 'Electronics', 'Wearables', 'Smart Watch Pro'),
 
-    (2499, 1799, 4.4, 67, 'Sale', 'Footwear', 'Running Sports Shoes'),
+    (2499, 1799, 'Sale', 'Footwear', 'Sports Shoes', 'Running Sports Shoes'),
 
-    (3999, 2999, 4.6, 98, 'Premium', 'Clothing', 'Slim Fit Denim Jacket'),
+    (3999, 2999, 'Premium', 'Clothing', 'Jackets', 'Slim Fit Denim Jacket'),
 
-    (1299, 799, 4.2, 43, 'New', 'Accessories', 'Minimal Silver Chain'),
+    (1299, 799, 'New', 'Accessories', 'Jewelry', 'Minimal Silver Chain'),
 
-    (6999, 5499, 4.8, 156, 'Top Rated', 'Electronics', 'Gaming Keyboard'),
+    (6999, 5499, 'Top Rated', 'Electronics', 'Keyboards', 'Gaming Keyboard'),
 
-    (2199, 1599, 4.1, 38, 'Popular', 'Clothing', 'Cotton Cargo Pants');
+    (2199, 1599, 'Popular', 'Clothing', 'Pants', 'Cotton Cargo Pants');
