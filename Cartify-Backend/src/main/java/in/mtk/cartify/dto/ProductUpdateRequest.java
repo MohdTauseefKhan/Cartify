@@ -1,16 +1,9 @@
 package in.mtk.cartify.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.UUID;
-
 
 @Data
-public class ProductResponse {
-    private Long id;
-
+public class ProductUpdateRequest {
     private String name;
     private String category;
     private String subCategory;

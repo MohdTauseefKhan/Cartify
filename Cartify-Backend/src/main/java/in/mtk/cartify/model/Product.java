@@ -20,7 +20,7 @@ public class Product {
     private String name;
     private String category;
     private String subCategory;
-    private int price;
-    private int oldPrice;
+    private Integer price;
+    private Integer oldPrice;
     private String badge;
 }

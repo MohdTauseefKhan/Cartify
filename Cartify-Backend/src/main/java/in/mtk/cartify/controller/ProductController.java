@@ -2,9 +2,12 @@ package in.mtk.cartify.controller;
 
 import in.mtk.cartify.dto.ProductRequest;
 import in.mtk.cartify.dto.ProductResponse;
+import in.mtk.cartify.dto.ProductUpdateRequest;
 import in.mtk.cartify.model.Product;
 import in.mtk.cartify.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,17 +38,22 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> addProduct(@RequestBody ProductRequest productRequest){
-        return ResponseEntity.ok(productService.addProduct(productRequest));
+    public ResponseEntity<String> addProduct(@Valid @RequestBody ProductRequest productRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(productRequest));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateProduct(@RequestBody ProductRequest productRequest,@PathVariable long id){
+    public ResponseEntity<String> updateProduct(@Valid @RequestBody ProductRequest productRequest,@PathVariable long id){
         return ResponseEntity.ok(productService.updateProduct(productRequest,id));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProductById(@PathVariable long id){
         return ResponseEntity.ok(productService.deleteById(id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> updateProduct(@RequestBody ProductUpdateRequest productUpdateRequest,@PathVariable long id){
+        return ResponseEntity.ok(productService.updateProduct(productUpdateRequest,id));
     }
 }

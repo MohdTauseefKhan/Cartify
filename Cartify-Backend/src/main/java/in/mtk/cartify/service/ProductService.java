@@ -2,6 +2,8 @@ package in.mtk.cartify.service;
 
 import in.mtk.cartify.dto.ProductRequest;
 import in.mtk.cartify.dto.ProductResponse;
+import in.mtk.cartify.dto.ProductUpdateRequest;
+import in.mtk.cartify.exception.ResourceNotFoundException;
 import in.mtk.cartify.mapper.ProductMapper;
 import in.mtk.cartify.model.Product;
 import in.mtk.cartify.repository.ProductRepo;
@@ -27,7 +29,9 @@ public class ProductService {
     }
 
     public ProductResponse getById(long id){
-        Product product = productRepo.findById(id).orElseThrow();
+        Product product = productRepo.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Product not found with id: "+id));
+
         return productMapper.toProductResponse(product);
     }
 
@@ -38,15 +42,30 @@ public class ProductService {
     }
 
     public String updateProduct(ProductRequest productRequest,long id){
-        Product product = productRepo.findById(id).orElseThrow();
+        Product product = productRepo.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Product not found with id: "+id));
+
         productMapper.updateProductFromProductRequest(productRequest,product);
         productRepo.save(product);
+
         return "PRODUCT UPDATED";
     }
 
     public String deleteById(long id) {
-        Product product = productRepo.findById(id).orElseThrow();
+        Product product = productRepo.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Product not found with id: "+id));
+
         productRepo.delete(product);
         return "PRODUCT DELETED";
+    }
+
+    public String updateProduct(ProductUpdateRequest productUpdateRequest, long id){
+        Product product = productRepo.findById(id).orElseThrow(()->
+                new ResourceNotFoundException("Product not found with id: "+id));
+
+        productMapper.updateProductFromProductUpdateRequest(productUpdateRequest,product);
+        productRepo.save(product);
+
+        return "PRODUCT UPDATED";
     }
 }
