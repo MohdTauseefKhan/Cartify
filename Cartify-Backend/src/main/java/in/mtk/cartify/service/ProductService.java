@@ -68,4 +68,23 @@ public class ProductService {
 
         return "PRODUCT UPDATED";
     }
+
+    public List<ProductResponse> getAllProductByCategory(String category){
+        List<Product> product = productRepo.findAllByCategory(category);
+
+        if(product.isEmpty()){
+            throw new ResourceNotFoundException("Product not found with category: "+category);
+        }
+
+        return productMapper.toProductResponseList(product);
+    }
+
+    public List<ProductResponse> gettAllProductByKeyword(String keyword) {
+        List<Product> products = productRepo.findProductsByKeyword(keyword);
+
+        if (products.isEmpty()){
+            throw new ResourceNotFoundException("Product not found");
+        }
+        return productMapper.toProductResponseList(products);
+    }
 }

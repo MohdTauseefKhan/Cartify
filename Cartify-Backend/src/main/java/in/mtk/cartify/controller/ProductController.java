@@ -56,4 +56,14 @@ public class ProductController {
     public ResponseEntity<String> updateProduct(@RequestBody ProductUpdateRequest productUpdateRequest,@PathVariable long id){
         return ResponseEntity.ok(productService.updateProduct(productUpdateRequest,id));
     }
+
+    @GetMapping(params = "category")
+    public ResponseEntity<List<ProductResponse>> getProductsByCategory(@RequestParam String category){
+        return ResponseEntity.ok(productService.getAllProductByCategory(category));
+    }
+
+    @GetMapping(value = "/search",params = "keyword")
+    public ResponseEntity<List<ProductResponse>> getProductsByKeyword(@RequestParam String keyword){
+        return ResponseEntity.ok(productService.gettAllProductByKeyword(keyword));
+    }
 }
