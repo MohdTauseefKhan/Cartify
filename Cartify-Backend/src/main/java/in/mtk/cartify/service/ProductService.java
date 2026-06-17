@@ -3,13 +3,19 @@ package in.mtk.cartify.service;
 import in.mtk.cartify.dto.ProductRequest;
 import in.mtk.cartify.dto.ProductResponse;
 import in.mtk.cartify.dto.ProductUpdateRequest;
+import in.mtk.cartify.dto.SearchRequest;
 import in.mtk.cartify.exception.ResourceNotFoundException;
 import in.mtk.cartify.mapper.ProductMapper;
 import in.mtk.cartify.model.Product;
 import in.mtk.cartify.repository.ProductRepo;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -78,13 +84,27 @@ public class ProductService {
 
         return productMapper.toProductResponseList(product);
     }
+    
 
-    public List<ProductResponse> gettAllProductByKeyword(String keyword) {
-        List<Product> products = productRepo.findProductsByKeyword(keyword);
+    public List<String> getAllCategories() {
+        return productRepo.findAllCategories();
+    }
 
-        if (products.isEmpty()){
-            throw new ResourceNotFoundException("Product not found");
-        }
+    public List<ProductResponse> searchProducts(SearchRequest searchRequest) {
+        String keyword = searchRequest.keyword();
+        String category = searchRequest.category();
+        int page = searchRequest.page()==null?0:searchRequest.page();
+        int minPrice = searchRequest.minPrice()==null?0:searchRequest.minPrice();
+        int maxPrice = searchRequest.maxPrice()==null?Integer.MAX_VALUE:searchRequest.maxPrice();
+        String sortDir = searchRequest.sortDir() == null || searchRequest.sortDir().equalsIgnoreCase("asc")?"asc":"desc";
+
+        Sort sort = sortDir.equalsIgnoreCase("asc")
+                ?Sort.by("price").ascending():
+                Sort.by("price").descending();
+
+        Pageable pageable = PageRequest.of(page-1,2,sort);
+        List<Product> products = productRepo.searchProducts(keyword,category,minPrice,maxPrice,pageable).getContent();
+
         return productMapper.toProductResponseList(products);
     }
 }

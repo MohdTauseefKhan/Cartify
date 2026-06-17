@@ -3,6 +3,7 @@ package in.mtk.cartify.controller;
 import in.mtk.cartify.dto.ProductRequest;
 import in.mtk.cartify.dto.ProductResponse;
 import in.mtk.cartify.dto.ProductUpdateRequest;
+import in.mtk.cartify.dto.SearchRequest;
 import in.mtk.cartify.model.Product;
 import in.mtk.cartify.service.ProductService;
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -62,8 +64,15 @@ public class ProductController {
         return ResponseEntity.ok(productService.getAllProductByCategory(category));
     }
 
-    @GetMapping(value = "/search",params = "keyword")
-    public ResponseEntity<List<ProductResponse>> getProductsByKeyword(@RequestParam String keyword){
-        return ResponseEntity.ok(productService.gettAllProductByKeyword(keyword));
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getCategories(){
+        return ResponseEntity.ok(productService.getAllCategories());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductResponse>> searchProducts(
+            @ModelAttribute SearchRequest searchRequest
+            ){
+        return ResponseEntity.ok(productService.searchProducts(searchRequest));
     }
 }
