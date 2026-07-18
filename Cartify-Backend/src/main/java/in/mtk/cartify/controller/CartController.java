@@ -4,6 +4,7 @@ import in.mtk.cartify.dto.CartRequest;
 import in.mtk.cartify.dto.CartResponse;
 import in.mtk.cartify.service.CartService;
 import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,12 @@ public class CartController {
     }
 
     @PutMapping("/increase/{productId}")
-    public ResponseEntity<Void> increaseQuantity(@RequestBody int quantity,@PathVariable long productId){
-        return ResponseEntity.ok(cartService.increaseQuantity(quantity,productId));
+    public ResponseEntity<Void> increaseQuantity(@PathVariable long productId){
+        return ResponseEntity.ok(cartService.increaseQuantity(productId));
+    }
+
+    @PutMapping("/decrease/{productId}")
+    public ResponseEntity<Void> decreaseQuantity(@PathVariable long productId) throws BadRequestException {
+        return ResponseEntity.ok(cartService.decreaseQuantity(productId));
     }
 }

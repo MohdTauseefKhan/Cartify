@@ -10,6 +10,7 @@ import in.mtk.cartify.model.Product;
 import in.mtk.cartify.repository.CartItemRepo;
 import in.mtk.cartify.repository.CartRepo;
 import in.mtk.cartify.repository.ProductRepo;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -84,14 +85,36 @@ public class CartService {
         return null;
     }
 
-    public Void increaseQuantity(int quantity, long productId) {
+    public Void increaseQuantity(long productId) {
         Cart cart = cartRepo.findById(1L).orElseThrow(()->new ResourceNotFoundException("Cart Not Found With Id: 1"));
         Product product = productRepo.findById(productId).orElseThrow(()->new ResourceNotFoundException("Product Not Found With Id: "+productId));
 
         CartItem cartItem = cartItemRepo.findByCartAndProduct(cart,product).orElseThrow(()->new ResourceNotFoundException("Cart Item Not Found"));
 
-        cartItem.setQuantity(cartItem.getQuantity()+quantity);
+        cartItem.setQuantity(cartItem.getQuantity()+1);
         cartItemRepo.save(cartItem);
+        return null;
+    }
+
+    public Void decreaseQuantity(long productId) throws BadRequestException {
+        Cart cart = cartRepo.findById(1L).orElseThrow(()->new ResourceNotFoundException("Cart Not Found With Id: 1"));
+        Product product = productRepo.findById(productId).orElseThrow(()->new ResourceNotFoundException("Product Not Found With Id: "+productId));
+
+        CartItem cartItem = cartItemRepo.findByCartAndProduct(cart,product).orElseThrow(()->new ResourceNotFoundException("Cart Item Not Found"));
+
+        if(cartItem.getQuantity()==0){
+            throw new BadRequestException("Cannot Decrease Quantity");
+        }
+
+        cartItem.setQuantity(cartItem.getQuantity()-1);
+        cartItemRepo.save(cartItem);
+
+        if(cartItem.getQuantity()==0){
+            cart.getItems().remove(cartItem);
+            cartItemRepo.delete(cartItem);
+            cartRepo.save(cart);
+        }
+
         return null;
     }
 }

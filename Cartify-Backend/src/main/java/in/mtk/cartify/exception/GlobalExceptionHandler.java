@@ -2,6 +2,7 @@ package in.mtk.cartify.exception;
 
 import in.mtk.cartify.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -31,6 +32,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidationException(MethodArgumentNotValidException ex,HttpServletRequest request){
+        Map<String,String> errors = new HashMap<>();
+
+        ex.getBindingResult()
+                .getFieldErrors()
+                .forEach(error->
+                        errors.put(error.getField(),error.getDefaultMessage()));
+        return ResponseEntity.badRequest().body(errors);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Map<String,String>> handleBadRequest(MethodArgumentNotValidException ex,HttpServletRequest request){
         Map<String,String> errors = new HashMap<>();
 
         ex.getBindingResult()
